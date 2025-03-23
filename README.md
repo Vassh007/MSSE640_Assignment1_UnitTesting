@@ -74,6 +74,80 @@ The expected behavior of the program is to recognize these inputs as not forming
 The self-assessment test evaluation from Chapter 1 of The Art of Software Testing was incredibly helpful in guiding how I designed both my program and the unit tests. The scenarios listed in the table gave me a clear roadmap of the types of inputs I needed to account for, ensuring I didn't overlook important edge cases. By covering all the triangle types—scalene, equilateral, and isosceles—and testing them thoroughly, including all permutations, I felt confident the program correctly handled different inputs. Additionally, thinking explicitly about special cases like negative or zero-length sides, or situations where the triangle inequality fails, helped me anticipate potential errors and handle them gracefully in the code. Even though the table included optional scenarios, like non-integer inputs, tackling these cases made my testing more robust and improved the program's overall quality. Ultimately, this structured approach made the testing process smoother, ensuring the program behaved correctly and reliably across various scenarios.
 
 ## Unit Tests
+To verify that my application accurately classifies triangles, I created a comprehensive JUnit test suite based on a self-assessment table inspired by Chapter 1 of **The Art of Software Testing, 3rd Edition** by Glenford J. Myers, Corey Sandler, and Tom Badgett. I have rationalized each choice of accompanying Java JUnit code used for testing. Below are the unit tests I implemented:
+
+**Test 1: Valid Scalene Triangle**  
+I tested scalene triangles using inputs such as (3, 4, 5) in various orders to ensure that the program consistently recognizes scalene triangles, regardless of the order of the side lengths provided. This was essential for verifying the correctness of the basic triangle classification logic.
+
+**Test 2: Valid Equilateral Triangle**  
+I included tests for equilateral triangles using inputs like (5, 5, 5) to ensure accurate identification. By testing multiple examples, I confirmed that the logic correctly distinguished between equilateral and isosceles triangles, effectively avoiding common logical pitfalls.
+
+**Test 3: Valid Isosceles Triangle (Different Permutations)**  
+For isosceles triangles, I tested several permutations, including (3, 3, 4), (3, 4, 3), and (4, 3, 3). This was done to verify that my classification logic handled all input orders correctly, ensuring reliable and order-independent identification of isosceles triangles.
+
+**Test 4: Zero-Length Side (Invalid Input)**  
+To test the robustness of error handling, I validated scenarios involving a zero-length side, such as (0, 7, 7). These tests confirmed that the program appropriately flagged such cases as invalid.
+
+**Test 5: Negative Side Length (Invalid Input)**  
+I also tested negative side lengths, such as (-1, 5, 5), to validate the program’s resilience against inappropriate negative inputs and to ensure correct identification of invalid triangles.
+
+**Test 6: Triangle Inequality Violation (Invalid Input)**  
+I included scenarios that violated the triangle inequality, such as (1, 1, 3), to confirm that the program correctly identified these cases as invalid.
+
+Overall, these JUnit tests, directly aligned with the scenarios recommended in Chapter 1, significantly improved the reliability and accuracy of my triangle classification program by providing comprehensive and systematic coverage of both valid and invalid inputs. Here is an example of the test suite that was created:
+
+    ```Java
+                        
+                        @Test
+                        void testValidScaleneTriangle() {
+                       assertEquals("Scalene", TriangleIdentify.identifyTriangle(3, 4, 5));
+                       assertEquals("Scalene", TriangleIdentify.identifyTriangle(5, 4, 3));
+                       assertEquals("Scalene", TriangleIdentify.identifyTriangle(3, 5, 4));
+               
+               
+                   }
+               
+                   @Test
+                   void testValidIsoscelesTriangle() {
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(5, 5, 7));
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(5, 7, 5));
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(7, 5, 5));
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(3, 3, 4));
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(3, 4, 3));
+                       assertEquals("Isosceles", TriangleIdentify.identifyTriangle(4, 3, 3));
+                   }
+               
+                   @Test
+                   void testValidEquilateralTriangle() {
+                       assertEquals("Equilateral", TriangleIdentify.identifyTriangle(5, 5, 5));
+                       assertEquals("Equilateral", TriangleIdentify.identifyTriangle(10, 10, 10));
+                       assertEquals("Equilateral", TriangleIdentify.identifyTriangle(2, 2, 2));
+                   }
+               
+                   @Test
+                   void testInvalidTriangleZeroLengthSide() {
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(0, 0, 0));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(0, 1, 2));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, 0, 2));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, 2,0));
+                   }
+                   @Test
+                   void testInvalidTriangleNegativeSide() {
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(-1, -1, -1));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(-1, 1, 2));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, -1, 2));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, 2, -1));
+                   }
+               
+                   @Test
+                   void testTriangleInequalityViolation() {
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, 1, 3));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(1, 3, 1));
+                       assertEquals("Invalid", TriangleIdentify.identifyTriangle(3, 1, 1));
+                   }
+
+    ```
+
 
 ## Bugs encountered during testing
 
