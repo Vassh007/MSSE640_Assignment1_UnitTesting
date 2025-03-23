@@ -36,14 +36,11 @@ Figure 2: JUnit test results in IntelliJ IDEA. All unit tests passed successfull
 
 [🔗 GitHub Repo Link] (https://github.com/Vassh007/MSSE640_Assignment1_UnitTesting)
 
+## Recommendation
+
 ## REFERENCES
 Myers, G. J., Sandler, C., & Badgett, T. (2012). *The Art of Software Testing (3rd ed.)*. Wiley. 
 https://learning.oreilly.com/library/view/the-art-of/9781118133156/
-
-### Authors
-Suvash Shrestha
-
-## Recommendation
 
 ### Authors
 Suvash Shrestha
