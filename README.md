@@ -34,7 +34,38 @@ I separated the classification logic from the user interaction logic to enable r
 Additionally, I used JUnit 5 for comprehensive testing. The test cases are designed to validate both typical and edge cases explicitly. The classification result—whether the triangle is Equilateral, Isosceles, Scalene, or Invalid—is displayed directly on the console with the command `System.out.println("The triangle is: " + result);`. Importantly, the test cases do not rely on external data for input or output.
 
    
-## Unit Tests 
+## Unit Tests
+The following table summarizes various example inputs to the program and the expected classification outputs. These test cases cover normal triangles of each type as well as several invalid cases, demonstrating how the program should respond:
+| Side A |	Side B |	Side C |	Expected Output              |
+|--------|---------|--------| -----------------------------|
+| 3	   | 4	    | 5	    | Scalene triangle (valid)     |
+| 2	   | 2	    | 2	    | Equilateral triangle (valid) |
+| 2	   | 2	    | 3	    | Isosceles triangle (valid)   |
+| 3	   | 3	    | 4	    | Isosceles triangle (valid)   |
+| 1	   | 2	    | 3 	    | Invalid (not a triangle)     |
+| 2	   | 5	    | 10	    | Invalid (not a triangle)     |
+| 0	   |5	       | 5	    | Invalid (zero-length side)   |
+| -1	   | 4	    | 5	    | Invalid (negative side)      |
+
+## Self-Assessment Test Evaluation (from Chapter 1 - The Art of Software Testing)
+
+| # | Scenario                        | Tested? |
+|---|---------------------------------|---------|
+| 1 | Valid scalene triangle          | ✅ Yes  |
+| 2 | Valid equilateral triangle      | ✅ Yes  |
+| 3 | Valid isosceles triangle        | ✅ Yes  |
+| 4 | All permutations of isosceles   | ✅ Yes  |
+| 5 | Zero-length side                | ✅ Yes  |
+| 6 | Negative side length            | ✅ Yes  |
+| 7 | Sum of two sides equals third   | ✅ Yes  |
+| 8 | All permutations (from Q7)      | ✅ Yes  |
+| 9 | Sum of two sides less than third| ✅ Yes  |
+|10 | All permutations (from Q9)      | ✅ Yes  |
+|11 | All sides zero                  | ✅ Yes  |
+|12 | Non-integer inputs (optional)   | ❌ No (not required) |
+|13 | Wrong number of inputs (optional)| ❌ No (not required) |
+|14 | Clearly specified expected outputs | ✅ Yes  |
+
 
 ## Bugs encountered during testing
 
