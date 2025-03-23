@@ -8,7 +8,7 @@ Unit tests were designed to cover a range of typical and edge-case inputs for tr
 ## Detail of the Project
 This project was developed using IntelliJ IDEA to meet the requirements outlined by the rubric. The core functionality is encapsulated in the method `identifyTriangle(int a, int b, int c)` within the `TriangleIdentify` class. This method accepts three integer inputs representing the sides of a triangle and returns a classification: "Equilateral," "Isosceles," "Scalene," or "Invalid." Inspired by *The Art of Software Testing, 3rd Edition*, I devised a checklist to validate the input sides consisting of 14 questions highlighted in the book:
 ### Valid Triangles:
-- 1	Did you test a valid scalene triangle? Example: 3,4,5
+- 1.	Did you test a valid scalene triangle? Example: 3,4,5
 - 2. Did you test a valid equilateral triangle? Example: 2,2,2
 - 3. Did you test a valid isosceles triangle? Example: 3,3,4
 - 4. Did you test all permutations for an isosceles triangle (three different arrangements of two equal sides)? Examples: 3,3,4; 3,4,3; 4,3,3
@@ -25,11 +25,13 @@ This project was developed using IntelliJ IDEA to meet the requirements outlined
 -	13. Did you test when you input the wrong number of sides (like only two instead of three)? (optional unless required explicitly by your professor) Example: 2,4
 ### Clarity of Test Cases:
 -	14. For every test case you created, did you write down what output you expected from the program? Example: Side A: 3, Side B: 4, Side C: 5 → Scalene
-The function ensures the validity of the sides by checking conditions such as negative or zero-length sides and violations of the triangle inequality theorem.
-Additionally, I implemented the `main` method as a console-based driver to prompt users to sequentially input three integer values for triangles. The method utilizes Java's `Scanner` object (`Scanner sc = new Scanner(System.in)`) allowing user interaction via the console. This ensures that users can enter integers representing the lengths of the triangle sides one by one until the console outputs a message such as "The triangle is scalene" (or isosceles/equilateral), or an error message if the inputs are invalid.
+Thus, the function ensures the validity of the sides by checking conditions such as negative or zero-length sides and violations of the triangle inequality theorem.
+Additionally, I implemented the `main` method as a console-based driver to prompt users to sequentially input three integer values for triangles. The method utilizes Java's `Scanner` object (`Scanner sc = new Scanner(System.in)`), allowing user interaction via the console. This ensures that users can enter integers representing the lengths of the triangle sides one by one until the console outputs a message such as "The triangle is scalene" (or isosceles/equilateral), or an error message if the inputs are invalid.
 ```Java
 System.out.println("The triangle is: " + result);
 ```
+I separated the classification logic from the user interaction logic to enable robust and automated unit testing. This way, the triangle classification method `(identifyTriangle(a, b, c))` can be called directly from an automated test case without requiring an interactive prompt, significantly simplifying the testing process.
+Additionally, I used JUnit 5 for comprehensive testing. The test cases are designed to validate both typical and edge cases explicitly. The classification result—whether the triangle is Equilateral, Isosceles, Scalene, or Invalid—is displayed directly on the console with the command `System.out.println("The triangle is: " + result);`. Importantly, the test cases do not rely on external data for input or output.
 
    
 ## Unit Tests 
@@ -42,7 +44,7 @@ System.out.println("The triangle is: " + result);
 Below are screenshots demonstrating the successful execution of the triangle classification program and the results of running the JUnit test suite. Each figure is labeled for clarity.
 
 Figure 1 : Example console output of the Triangle Classification program
-
+Here are some ScreenShots of the test being performed
 ![image](https://github.com/user-attachments/assets/d6666cd6-cd31-4a5a-9a05-90c0ed16f0f9)
 ![image](https://github.com/user-attachments/assets/eb64202d-7ee5-4aae-b164-36cc647a5d34)
 ![image](https://github.com/user-attachments/assets/460c65a1-5c82-4001-aceb-30771d5cbc96)
