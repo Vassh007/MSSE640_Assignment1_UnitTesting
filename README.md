@@ -34,7 +34,7 @@ I separated the classification logic from the user interaction logic to enable r
 Additionally, I used JUnit 5 for comprehensive testing. The test cases are designed to validate both typical and edge cases explicitly. The classification result—whether the triangle is Equilateral, Isosceles, Scalene, or Invalid—is displayed directly on the console with the command `System.out.println("The triangle is: " + result);`. Importantly, the test cases do not rely on external data for input or output.
 
    
-## Unit Tests
+## Table of Example Test Data
 The following table summarizes various example inputs to the program and the expected classification outputs. These test cases cover normal triangles of each type as well as several invalid cases, demonstrating how the program should respond:
 | Side A |	Side B |	Side C |	Expected Output              |
 |--------|---------|--------| -----------------------------|
@@ -47,7 +47,12 @@ The following table summarizes various example inputs to the program and the exp
 | 0	   |5	       | 5	    | Invalid (zero-length side)   |
 | -1	   | 4	    | 5	    | Invalid (negative side)      |
 
-## Self-Assessment Test Evaluation (from Chapter 1 - The Art of Software Testing)
+The table above provides clear evidence of both valid and invalid triangles. For instance, it lists four rows of valid triangles, with `3, 4, 5` being an example of a classic scalene triangle, while `2, 2, 2` represents an equilateral triangle. Additionally, it includes cases where two lengths of the triangle are equal, such as `2, 2, 3` or `3, 3, 4`, demonstrating isosceles triangles. In this context, the order of the sides does not affect the classification of the triangle. For example, `3, 3, 4` is an isosceles triangle, and rearranging the sides to `3, 4, 3` or `4, 3, 3` will still yield the same classification: isosceles.
+   Moreover, the table educates the reader by illustrating why the final four rows contain invalid input. For instance, `1, 2, 3` and `2, 5, 10` do not satisfy the triangle inequality theorem, which states that the sum of the lengths of any two sides must be greater than the length of the third side. Additionally, `0, 5, 5` includes a zero-length side, and `-1, 4, 5` includes a negative length, both of which are examples of invalid cases. 
+
+The expected behavior of the program is to recognize these inputs as not forming a valid triangle. When correctly implemented, the program should output an error message stating, "The Triangle is: Invalid." Thus, it must not classify any invalid triangle as a valid type unless it is definitively proven to be valid. I chose this test to ensure comprehensive coverage of all important scenarios, including every type of valid triangle and a variety of invalid conditions (boundary cases and erroneous inputs).
+
+### Self-Assessment Test Evaluation (from Chapter 1 - The Art of Software Testing)
 
 | # | Scenario                        | Tested? |
 |---|---------------------------------|---------|
@@ -62,10 +67,13 @@ The following table summarizes various example inputs to the program and the exp
 | 9 | Sum of two sides less than third| ✅ Yes  |
 |10 | All permutations (from Q9)      | ✅ Yes  |
 |11 | All sides zero                  | ✅ Yes  |
-|12 | Non-integer inputs (optional)   | ❌ No (not required) |
+|12 | Non-integer inputs (optional)   | ❌(not required) but did it |
 |13 | Wrong number of inputs (optional)| ❌ No (not required) |
 |14 | Clearly specified expected outputs | ✅ Yes  |
 
+The self-assessment test evaluation from Chapter 1 of The Art of Software Testing was incredibly helpful in guiding how I designed both my program and the unit tests. The scenarios listed in the table gave me a clear roadmap of the types of inputs I needed to account for, ensuring I didn't overlook important edge cases. By covering all the triangle types—scalene, equilateral, and isosceles—and testing them thoroughly, including all permutations, I felt confident the program correctly handled different inputs. Additionally, thinking explicitly about special cases like negative or zero-length sides, or situations where the triangle inequality fails, helped me anticipate potential errors and handle them gracefully in the code. Even though the table included optional scenarios, like non-integer inputs, tackling these cases made my testing more robust and improved the program's overall quality. Ultimately, this structured approach made the testing process smoother, ensuring the program behaved correctly and reliably across various scenarios.
+
+## Unit Tests
 
 ## Bugs encountered during testing
 
