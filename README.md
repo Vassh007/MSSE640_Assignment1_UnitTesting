@@ -9,7 +9,11 @@ Unit tests were designed to cover a range of typical and edge-case inputs for tr
 
 ## Unit Tests
 
-##ScreenShots
+## Bugs encountered during testing
+
+## Problems
+
+## ScreenShots
 Below are screenshots demonstrating the successful execution of the triangle classification program and the results of running the JUnit test suite. Each figure is labeled for clarity.
 
 Figure 1 : Example console output of the Triangle Classification program
