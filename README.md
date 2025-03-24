@@ -402,3 +402,4 @@ https://learning.oreilly.com/library/view/the-art-of/9781118133156/
 
 ### Authors
 Suvash Shrestha
+Jose G Vallejo
