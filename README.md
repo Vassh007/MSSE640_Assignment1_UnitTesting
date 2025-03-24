@@ -150,6 +150,181 @@ Overall, these JUnit tests, directly aligned with the scenarios recommended in C
 
 
 ## Bugs encountered during testing
+I encountered some minor hurdles and challenges during development and testing due to bugs. These bugs primarily involved logical errors and issues with input validation, which I identified and resolved. Initially, I did not consider the importance of the order in which conditions for identifying the type of triangle were checked. In my original code, I checked for an isosceles triangle before checking for an equilateral triangle. This oversight led to equilateral triangles (with three equal sides) being incorrectly classified as isosceles triangles. The faulty logic in my code looked like this:
+                       **Before (Incorrect Code)**
+                        ```Java
+                              if (a == b || b == c || a == c)
+                                  return "Isosceles";
+                              else if (a == b && b == c)
+                                  return "Equilateral";
+                        ```
+   I corrected the logical error by rearranging the order of conditions, placing the check for equilateral triangles first since they are a specific subset of isosceles triangles (two equal sides).
+                          **After (Corrected Code)**
+                           ```Java
+                                if (a == b && b == c)
+                                  return "Equilateral";
+                              else if (a == b || b == c || a == c)
+                                  return "Isosceles";
+                           ```
+Additionally, my original implementation accepted side lengths that were zero or negative and incorrectly attempted classification. For instance, the sides `0, 5, 5` were identified as "Isosceles," while a negative value like `-1, 4, 5` was considered Scalene.
+     **Before (Incorrect Code)**
+                   ```Java
+                                       if (a == b && b == c)
+                                           return "Equilateral";
+                                       else if (a == b || b == c || a == c)
+                                           return "Isosceles";
+                                       else
+                                           return "Scalene";
+                   ```
+This adjustment ensures that triangles with all sides equal (e.g., 5,5,5) are correctly classified as "Equilateral" rather than "Isosceles."
+               **After (Corrected Code)**
+                        ```Java
+                              
+                              // First check Equilateral explicitly
+                                       if (a == b && b == c)
+                                           return "Equilateral";
+                                       // Then check for Isosceles triangle
+                                       else if (a == b || b == c || a == c)
+                                           return "Isosceles";
+                                       // Finally, if none match, it must be Scalene
+                                       else
+                                           return "Scalene";
+
+                        ```
+In addition, my original implementation accepted side of zero or negative lengths and improperly attempted classification. For instance, `o, 5, 5` was identified as "Isosceles," and negative values like `-1, 4, 5` were considered Scalene.
+        **Before (Incorrect Code)**
+                   ```Java
+                                       if (a == b && b == c)
+                                           return "Equilateral";
+                                       else if (a == b || b == c || a == c)
+                                           return "Isosceles";
+                                       else
+                                           return "Scalene";
+                   ```
+   This line of code correctly identifies invalid inputs, preventing logical errors.
+                   **After (Corrected Code)**
+                        ```Java
+                        
+                                // Explicitly handle zero or negative sides as invalid
+                                 if ((a <= 0) || (b <= 0) || (c <= 0))
+                                     return "Invalid";
+
+                     ```
+Furthermore, I encountered an inconsistency between the program's output and the expected result from the unit test. Initially, my application might return a classification like "Scalene Triangle," while the test expected a result like "Scalene."
+          **Before (Incorrect Code)**
+                   ```Java
+                       System.out.println("The triangle is Scalene triangle");
+                   ```
+Below is the corrected implementation, which separates classifications for reliable testing and simplifies the process.
+             **After (Corrected Code)**
+                        ```Java
+                             
+                              System.out.println("The triangle is: " + result);
+                     ```
+
+I have completed a comprehensive update to my code, building on the previous version to enhance its robustness and handle various edge cases and invalid inputs. Although this was not a requirement, I wanted to ensure that validation checks, proper logical ordering of conditionals, and standardized output strings were incorporated for easier and more accurate testing.
+
+In this final update, the main method includes rigorous input validation to ensure that only integer side-length inputs are accepted. It manages improper user input gracefully by clearly alerting the user and terminating execution when necessary. This thorough and systematic approach guarantees reliable functionality and simplifies both manual and automated testing.
+
+          **Before (Second Last Verison)**
+                   ```Java
+                      
+                       public class TraingleIdenitify {
+                                  public static String identifyTriangle(int a, int b, int c) {
+                                      if((a <= 0) || (b <= 0) || (c <= 0))
+                                          return "Invalid";
+                                      if ((a + b <=c || a + c <= b || b + c <= a))
+                                          return "Invalid";
+                                      if (a == b && b == c)
+                                          return "Equilateral";
+                                      else if (a == b || b == c || a == c)
+                                          return "Isosceles";
+                                      else
+                                          return "Scalene";
+                              
+                                  }
+
+
+                                     public static void main(String[] args) {
+                                         Scanner sc = new Scanner(System.in);
+                                         System.out.print("Enter side 1: ");
+                                         int side1 = sc.nextInt();
+                                 
+                                         System.out.print("Enter side 2: ");
+                                         int side2 = sc.nextInt();
+                                 
+                                         System.out.print("Enter side 3: ");
+                                         int side3 = sc.nextInt();
+                                 
+                                         String result = identifyTriangle(side1, side2, side3);
+                                         
+                                     }
+                                 }
+                   
+                   ```
+                
+   **After (Final Verison)**
+                        ```Java
+                              
+                              import java.util.Scanner;
+                                 
+                                 /**
+                                  * The TriangleIdentify class provides a method to determine the type of a triangle
+                                  * based on the lengths of its three sides. It checks for the validity of the triangle
+                                  * and classifies it as Equilateral, Isosceles, or Scalene.
+                                  */
+                                 public class TriangleIdentify {
+                                     public static String identifyTriangle(int a, int b, int c) {
+                                         if ((a <= 0) || (b <= 0) || (c <= 0))
+                                             return "Invalid";
+                                 
+                                         // Check if the given sides can form a valid triangle
+                                         if ((a + b <= c || a + c <= b || b + c <= a))
+                                             return "Invalid";
+                                 
+                                         // Determine triangle type
+                                         if (a == b && b == c)
+                                             return "Equilateral";
+                                         else if (a == b || b == c || a == c)
+                                             return "Isosceles";
+                                         else
+                                             return "Scalene";
+                                     }
+                                 
+                                     public static void main(String[] args) {
+                                         Scanner sc = new Scanner(System.in);
+                                 
+                                         try {
+                                             System.out.print("Enter side 1: ");
+                                             if (!sc.hasNextInt()) {
+                                                 System.out.println("Invalid input! Please enter an integer.");
+                                                 return;
+                                             }
+                                             int side1 = sc.nextInt();
+                                 
+                                             System.out.print("Enter side 2: ");
+                                             if (!sc.hasNextInt()) {
+                                                 System.out.println("Invalid input! Please enter an integer.");
+                                                 return;
+                                             }
+                                             int side2 = sc.nextInt();
+                                 
+                                             System.out.print("Enter side 3: ");
+                                             if (!sc.hasNextInt()) {
+                                                 System.out.println("Invalid input! Please enter an integer.");
+                                                 return;
+                                             }
+                                             int side3 = sc.nextInt();
+                                 
+                                             String result = identifyTriangle(side1, side2, side3);
+                                             System.out.println("The triangle is: " + result);
+                                         } finally {
+                                             sc.close(); // Close the Scanner in a finally block to ensure it gets closed
+                                         }
+                                     }
+                                 }
+                    
+                     ```
 
 ## Problems
 
