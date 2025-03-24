@@ -151,23 +151,33 @@ Overall, these JUnit tests, directly aligned with the scenarios recommended in C
 
 ## Bugs encountered during testing
 I encountered some minor hurdles and challenges during development and testing due to bugs. These bugs primarily involved logical errors and issues with input validation, which I identified and resolved. Initially, I did not consider the importance of the order in which conditions for identifying the type of triangle were checked. In my original code, I checked for an isosceles triangle before checking for an equilateral triangle. This oversight led to equilateral triangles (with three equal sides) being incorrectly classified as isosceles triangles. The faulty logic in my code looked like this:
-                       **Before (Incorrect Code)**
+                      
+                       
+**Before (Incorrect Code)**
+                       
                         ```Java
                               if (a == b || b == c || a == c)
                                   return "Isosceles";
                               else if (a == b && b == c)
                                   return "Equilateral";
                         ```
+  
    I corrected the logical error by rearranging the order of conditions, placing the check for equilateral triangles first since they are a specific subset of isosceles triangles (two equal sides).
-                          **After (Corrected Code)**
+                        
+**After (Corrected Code)**
+                          
                            ```Java
                                 if (a == b && b == c)
                                   return "Equilateral";
                               else if (a == b || b == c || a == c)
                                   return "Isosceles";
+                          
                            ```
 Additionally, my original implementation accepted side lengths that were zero or negative and incorrectly attempted classification. For instance, the sides `0, 5, 5` were identified as "Isosceles," while a negative value like `-1, 4, 5` was considered Scalene.
-     **Before (Incorrect Code)**
+     
+**Before (Incorrect Code)**
+   
+                   
                    ```Java
                                        if (a == b && b == c)
                                            return "Equilateral";
@@ -176,8 +186,12 @@ Additionally, my original implementation accepted side lengths that were zero or
                                        else
                                            return "Scalene";
                    ```
+
 This adjustment ensures that triangles with all sides equal (e.g., 5,5,5) are correctly classified as "Equilateral" rather than "Isosceles."
-               **After (Corrected Code)**
+              
+               
+ **After (Corrected Code)**
+               
                         ```Java
                               
                               // First check Equilateral explicitly
@@ -192,7 +206,9 @@ This adjustment ensures that triangles with all sides equal (e.g., 5,5,5) are co
 
                         ```
 In addition, my original implementation accepted side of zero or negative lengths and improperly attempted classification. For instance, `o, 5, 5` was identified as "Isosceles," and negative values like `-1, 4, 5` were considered Scalene.
-        **Before (Incorrect Code)**
+
+**Before (Incorrect Code)**
+                  
                    ```Java
                                        if (a == b && b == c)
                                            return "Equilateral";
@@ -201,8 +217,11 @@ In addition, my original implementation accepted side of zero or negative length
                                        else
                                            return "Scalene";
                    ```
-   This line of code correctly identifies invalid inputs, preventing logical errors.
-                   **After (Corrected Code)**
+                   
+This line of code correctly identifies invalid inputs, preventing logical errors.
+
+**After (Corrected Code)**
+                       
                         ```Java
                         
                                 // Explicitly handle zero or negative sides as invalid
@@ -210,13 +229,20 @@ In addition, my original implementation accepted side of zero or negative length
                                      return "Invalid";
 
                      ```
+
 Furthermore, I encountered an inconsistency between the program's output and the expected result from the unit test. Initially, my application might return a classification like "Scalene Triangle," while the test expected a result like "Scalene."
-          **Before (Incorrect Code)**
+
+**Before (Incorrect Code)**
+                   
                    ```Java
                        System.out.println("The triangle is Scalene triangle");
-                   ```
+                   
+                  ```
+                  
 Below is the corrected implementation, which separates classifications for reliable testing and simplifies the process.
-             **After (Corrected Code)**
+
+**After (Corrected Code)**
+                       
                         ```Java
                              
                               System.out.println("The triangle is: " + result);
@@ -226,7 +252,9 @@ I have completed a comprehensive update to my code, building on the previous ver
 
 In this final update, the main method includes rigorous input validation to ensure that only integer side-length inputs are accepted. It manages improper user input gracefully by clearly alerting the user and terminating execution when necessary. This thorough and systematic approach guarantees reliable functionality and simplifies both manual and automated testing.
 
-          **Before (Second Last Verison)**
+
+**Before (Second Last Verison)**
+                   
                    ```Java
                       
                        public class TraingleIdenitify {
@@ -263,7 +291,10 @@ In this final update, the main method includes rigorous input validation to ensu
                    
                    ```
                 
+  
    **After (Final Verison)**
+                        
+                        
                         ```Java
                               
                               import java.util.Scanner;
@@ -327,11 +358,16 @@ In this final update, the main method includes rigorous input validation to ensu
                      ```
 
 ## Problems
+One of the main problems I encountered during this assignment involved using IntelliJ IDEA after becoming more familiar with Eclipse. Initially, setting up IntelliJ was challenging because my project was configured by default with Java 24, which caused runtime crashes and build errors, stating, "Release version 24 not supported." It took careful observation and trial and error to realize this issue was tied to the SDK version. I then navigated through the unfamiliar IDE menus. My project used Amazon Corretto 17, an alternative JDK, which required me to ensure compatibility and configure the project accordingly.
+
+Another significant hurdle was setting up JUnit tests. Unlike Eclipse, IntelliJ IDEA doesn't automatically include JUnit support in plain Java projects. Initially, I couldn’t run tests because no visible play button or test runner configuration was available. It required close attention to IntelliJ’s menus and directories, marking the test directory explicitly as the "Test Sources Root," manually adding the JUnit library dependencies, and configuring run profiles correctly. These detailed configuration steps required careful observation and referencing documentation to finally see the green play button appear and successfully run the tests.
+
+By comparison, debugging logic errors in the triangle classification was straightforward. Once the unit tests were properly set up and running, identifying and fixing bugs, such as triangle inequality validation and condition ordering, was simple. Unit tests indicated problematic scenarios, allowing for quick corrections. This experience reinforced the importance of careful initial setup.
 
 ## ScreenShots
 Below are screenshots demonstrating the successful execution of the triangle classification program and the results of running the JUnit test suite. Each figure is labeled for clarity.
 
-Figure 1 : Example console output of the Triangle Classification program
+Figure 1: Example console output of the Triangle Classification program
 Here are some ScreenShots of the test being performed
 ![image](https://github.com/user-attachments/assets/d6666cd6-cd31-4a5a-9a05-90c0ed16f0f9)
 ![image](https://github.com/user-attachments/assets/eb64202d-7ee5-4aae-b164-36cc647a5d34)
@@ -356,6 +392,9 @@ Figure 2: JUnit test results in IntelliJ IDEA. All unit tests passed successfull
 [🔗 GitHub Repo Link] (https://github.com/Vassh007/MSSE640_Assignment1_UnitTesting)
 
 ## Recommendation
+For recommendations, one suggestion is to include optional enhancements for students who complete the assignment quickly, thereby enriching their learning experience. One enhancement could involve extending the triangle classifier to determine the type of triangle based on its angles. In addition to the basic three types of triangles, students could learn to identify other classifications, such as acute, obtuse, and right triangles. Another interesting challenge would be to integrate a simple graphical user interface (GUI) that allows for the visualization of triangles and dynamically displays classification results. These enhancements would encourage deeper engagement and practice, especially if students also write corresponding unit tests to verify these new functionalities.
+
+Moreover, the assignment could emphasize the importance of rigorous testing techniques, as highlighted in *The Art of Software Testing*. Specifically, providing guidance on boundary value analysis and equivalence class partitioning would be beneficial. Myers states, "…you use a combination of most, if not all, of them to design a rigorous test of a program since each method has distinct strengths and weaknesses. One method may find errors that another method overlooks, for example. Nobody ever promised that software testing would be easy" (*The Art of Software Testing*, Myers, Chapter 2). Encouraging students to explore edge cases, such as very large side lengths (e.g., Integer.MAX_VALUE) or non-integer inputs, would further deepen their understanding of robust testing strategies, even if handling such scenarios is optional or beyond the scope of the initial assignment.
 
 ## REFERENCES
 Myers, G. J., Sandler, C., & Badgett, T. (2012). *The Art of Software Testing (3rd ed.)*. Wiley. 
